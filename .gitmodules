@@ -1,0 +1,3 @@
+[submodule "Assets/PrivateFiles"]
+	path = Assets/PrivateFiles
+	url = https://github.com/BuyMyBeard/GMTK2023-private
