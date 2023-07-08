@@ -17,14 +17,31 @@ public class Menu : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void Resume()
+    void Resume()
     {
         gameObject.SetActive(false);
         Time.timeScale = 1;
+    }
+    void Pause()
+    {
+        gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
     public void Quit()
     {
         Application.Quit();
     }
-    
+
+    public void TogglePause()
+    {
+        if (Time.timeScale == 1)
+            Pause();
+        else
+            Resume();
+    }
+    public void NextLevel()
+    {
+        LevelManager.LoadNextLevel();
+        Time.timeScale = 1;
+    }
 }
