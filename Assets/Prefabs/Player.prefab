@@ -37,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &6369650197598706207
 AudioSource:
@@ -203,7 +203,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.07555777, g: 0.0141509175, b: 1, a: 0.8235294}
+  m_Color: {r: 0.6792453, g: 0.17334045, b: 0.15699539, a: 0.8235294}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -239,7 +239,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &496590265045507576
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -273,7 +273,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 0.5, y: 2}
   m_Direction: 0
 --- !u!95 &1679276898103896616
 Animator:
@@ -308,15 +308,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6734b20f418ab2a4ab0939cf5907a4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terminalVelocity: -6
+  terminalVelocity: -10
   gravAcceleration: -15
   horizontalSpeed: 7
   jumpVelocity: 12
-  groundCheckDistance: 0.1
+  groundCheckDistance: 0.25
   compensation: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   platformLayer:
     serializedVersion: 2
     m_Bits: 0
