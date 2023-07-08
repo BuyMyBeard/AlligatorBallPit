@@ -110,11 +110,6 @@ public abstract class GroundedCharacter : MonoBehaviour
         GroundCheck(rayOrigin);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(1, 0, 0, 0.3f);
-        Gizmos.DrawCube(transform.position - new Vector3(0, ColliderSize.y / 2) + (Vector3)(CC.offset * transform.localScale) + Vector3.down * groundCheckDistance, groundCheckBoxSize);
-    }
     protected void GroundCheck(Vector2 rayOrigin)
     {
         bool wasGrounded = isGrounded;
@@ -126,6 +121,8 @@ public abstract class GroundedCharacter : MonoBehaviour
         //    transform.Translate(0, -groundHit.distance, 0);
 
         //Debug.DrawRay(rayOrigin, Vector2.down * groundCheckDistance, Color.red);
+        //Gizmos.color = new Color(1, 0, 0, 0.3f);
+        //Gizmos.DrawCube(transform.position - new Vector3(0, ColliderSize.y / 2) + (Vector3)(CC.offset * transform.localScale) + Vector3.down * groundCheckDistance, groundCheckBoxSize);
     }
 }
 
