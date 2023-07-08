@@ -121,15 +121,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: text-bubble-guy
     originalName: 
-    pivot: {x: 0.13090129, y: -0.12903225}
+    pivot: {x: 0.14194915, y: -0.029411765}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 233
-      height: 31
+      width: 236
+      height: 34
     spriteID: 4dd2ad0303c711845bc8dea536d3d918
     spriteBone: []
     spriteOutline: []
@@ -151,10 +151,10 @@ ScriptedImporter:
     - name: text-bubble-guy
       frameIndex: 0
       cellRect:
-        x: 4
-        y: 4
-        width: 233
-        height: 31
+        x: 1
+        y: 1
+        width: 236
+        height: 34
       spriteId: 4dd2ad0303c711845bc8dea536d3d918
     linkedCells: []
     parentIndex: -1

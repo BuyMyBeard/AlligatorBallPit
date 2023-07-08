@@ -4,13 +4,18 @@ using TMPro;
 using UnityEngine;
 
 
+[RequireComponent(typeof(AudioSource))]
 public class TextBubble : MonoBehaviour
 {
     TextMeshProUGUI textBox;
-    [SerializeField] float typingInterval = 0.1f;
+    [SerializeField] float typingInterval = 0.04f;
+    [SerializeField] float periodPause = 1f;
+    [SerializeField] float commaPause = 0.5f;
+    AudioSource audioSource;
     private void Awake()
     {
         textBox = GetComponentInChildren<TextMeshProUGUI>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void OnEnable()
     {
@@ -24,8 +29,29 @@ public class TextBubble : MonoBehaviour
         Clear();
         foreach (var c in text)
         {
-           textBox.text += c;
             yield return new WaitForSeconds(typingInterval);
+            textBox.text += c;
+            switch (c)
+            {
+                case ',':
+                    //audioSource.Stop();
+                    yield return new WaitForSeconds(commaPause);
+                    break;
+
+                case '.':
+                    //audioSource.Stop();
+                    yield return new WaitForSeconds(periodPause);
+                    break;
+
+                case ' ':
+                    //audioSource.Stop();
+                    break;
+
+                default:
+                    //audioSource.Play();
+                    audioSource.PlayOneShot(audioSource.clip);
+                    break;
+            }
         }
     }
 }
