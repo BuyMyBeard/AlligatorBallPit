@@ -134,7 +134,7 @@ public abstract class GroundedCharacter : MonoBehaviour
 
 
 
-[RequireComponent(typeof(PlayerInputs))]
+//[RequireComponent(typeof(PlayerInputs))]
 public class PlayerMove : GroundedCharacter
 {
     enum Animations { Initial, Idle, Walk, Jump, Fall };
@@ -167,14 +167,17 @@ public class PlayerMove : GroundedCharacter
     {
         base.Awake();
         audioSource = GetComponent<AudioSource>();
-        inputs = GetComponent<PlayerInputs>();
+        //inputs = GetComponent<PlayerInputs>();
+        
         animator = GetComponent<Animator>();
         //sfx = GetComponent<AudioManagerComponent>();
-        if (LevelManager.currentLevel == 1)
-            StartCoroutine(IntroAnimation());
+
     }
     private void Start()
     {
+        inputs = PlayerInputs.Instance;
+        if (LevelManager.currentLevel == 1)
+            StartCoroutine(IntroAnimation());
         audioManager = GetComponent<AudioManager>();
     }
     new private void FixedUpdate()
@@ -301,7 +304,11 @@ public class PlayerMove : GroundedCharacter
         yield return new WaitUntil(() => inputs.NudgeLeft && Time.timeScale == 1);
         Frozen = false;
         transform.RotateAround(pivot, Vector3.forward, 8);
-        GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayMusic();
+
+        //Music musicplayer = Music.Instance;
+        //musicplayer.PlayMusic();
+        Music.Instance.PlayMusic();
+        //GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayMusic();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

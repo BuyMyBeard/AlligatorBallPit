@@ -2600,6 +2600,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: tilemapVisual_general_118
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0164332bdf7fea946bb772c8216f3dc0
+      internalID: 1703477217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tilemapVisual_general_119
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c64f9b2c5298fe64ab88bba813af1f37
+      internalID: -952623614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tilemapVisual_general_120
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7731ba3d1c3873d4f8d2abdc243cc71f
+      internalID: 35446059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2633,7 +2696,10 @@ TextureImporter:
       tilemapVisual_general_115: -1633317436
       tilemapVisual_general_116: 1787806323
       tilemapVisual_general_117: 1637154829
+      tilemapVisual_general_118: 1703477217
+      tilemapVisual_general_119: -952623614
       tilemapVisual_general_12: -1451085700
+      tilemapVisual_general_120: 35446059
       tilemapVisual_general_13: -176079151
       tilemapVisual_general_14: -510591614
       tilemapVisual_general_15: -306863618

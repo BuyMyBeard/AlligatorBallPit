@@ -11,6 +11,12 @@ public class WallShroud : MonoBehaviour {
     private float fadeSpeed = 2f;
     [SerializeField] private bool willFadeAway;
 
+    private AudioSource audioSource;
+
+    private void Awake() {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision) {
 
         if (collision.TryGetComponent(out PlayerMove _)) {
@@ -25,8 +31,7 @@ public class WallShroud : MonoBehaviour {
         }
     }
 
-    /*
-    
+    /*    
     private void OnTriggerExit2D(Collider2D collision) {
 
         if (collision.TryGetComponent(out PlayerMove _)) {
@@ -41,6 +46,7 @@ public class WallShroud : MonoBehaviour {
 
     private IEnumerator Fade() {
         runFade = true;
+        audioSource.PlayOneShot(audioSource.clip);
         yield return new WaitForSeconds(2f);
         runFade = false;
 

@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class PlayerInputs : MonoBehaviour
-{
+public class PlayerInputs : MonoBehaviour {
+
+    public static PlayerInputs Instance;
+    public Inputs inputMap;
+
     [SerializeField] float jumpInputBuffer = 0.1f;
     [SerializeField] Menu menu;
     public Vector2 MoveInput { get; private set; } = Vector2.zero;
@@ -15,16 +19,29 @@ public class PlayerInputs : MonoBehaviour
     public bool NudgeRight { get; private set; } = false;
 
     InputAction move, jump, pause, nudgeLeft, nudgeRight;
+    void Awake() {
 
-    private void Awake()
-    {
-        Inputs inputMap = new Inputs();
-        move = inputMap.FindAction("Move");
-        jump = inputMap.FindAction("Jump");
-        pause = inputMap.FindAction("Pause");
-        nudgeLeft = inputMap.FindAction("Nudge Left");
-        nudgeRight = inputMap.FindAction("Nudge Right");
+        if (Instance != null) {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        Instance = this;
+        GameObject.DontDestroyOnLoad(this.gameObject);
+
+        {
+
+            inputMap = new Inputs();
+
+            move = inputMap.FindAction("Move");
+            jump = inputMap.FindAction("Jump");
+            pause = inputMap.FindAction("Pause");
+            nudgeLeft = inputMap.FindAction("Nudge Left");
+            nudgeRight = inputMap.FindAction("Nudge Right");
+
+        }
     }
+
 
     private void OnEnable()
     {
