@@ -21,6 +21,9 @@ public abstract class GroundedCharacter : MonoBehaviour
     [Space(10)]
     [SerializeField] protected float terminalVelocity = -6;
     [SerializeField] protected float gravAcceleration = -15;
+    //[SerializeField] protected float horizontalAcceleration = 20;
+    //[SerializeField] protected float horizontalDecceleration = -20;
+    //[SerializeField] protected float airControl = 1;
     [SerializeField] public float horizontalSpeed = 7;
     [SerializeField] protected float jumpVelocity = 12;
     [SerializeField] protected float groundCheckDistance = 0.1f;
@@ -29,15 +32,15 @@ public abstract class GroundedCharacter : MonoBehaviour
     [SerializeField] protected LayerMask platformLayer;
     [SerializeField] protected PhysicsMaterial2D noFriction;
     [SerializeField] protected PhysicsMaterial2D highFriction;
-    [SerializeField] protected float SlopeUpCompensation = 0.05f;
+    [SerializeField] Vector2 groundCheckBoxSize = Vector2.one;
     //AudioManagerComponent audioManager;
 
     protected bool isGrounded = false;
     protected Animator animator;
-    public Slope slope = Slope.None;
     public SpriteRenderer Sprite { get; set; }
     public Rigidbody2D RB { get; protected set; }
     public CapsuleCollider2D CC { get; protected set; }
+    public BoxCollider2D BC { get; protected set; }
     public Vector2 ColliderSize { get; protected set; }
 
     public Vector2 Velocity
@@ -56,10 +59,6 @@ public abstract class GroundedCharacter : MonoBehaviour
     {
         get => !isGrounded && Velocity.y > 0;
     }
-    public bool IsTouchingSlope
-    {
-        get => slope != Slope.None;
-    }
 
     public bool IsWalking
     {
@@ -70,6 +69,7 @@ public abstract class GroundedCharacter : MonoBehaviour
     {
         RB = GetComponent<Rigidbody2D>();
         CC = GetComponent<CapsuleCollider2D>();
+        BC = GetComponent<BoxCollider2D>();
         Sprite = GetComponent<SpriteRenderer>();
         ColliderSize = CC.size * transform.localScale;
         //audioManager = GetComponent<AudioManagerComponent>();
@@ -104,69 +104,25 @@ public abstract class GroundedCharacter : MonoBehaviour
         }
     }
 
-    protected virtual void AddSlopeCompensation()
-    {
-        if (slope == Slope.Up)
-            newVelocity.y = newVelocity.x;
-        else if (slope == Slope.Down)
-            newVelocity.y = -newVelocity.x;
-    }
-
     protected virtual void FloorCheck()
     {
         Vector2 rayOrigin = transform.position - new Vector3(0, ColliderSize.y / 2) + (Vector3)(CC.offset * transform.localScale);
-        SlopeCheck(rayOrigin);
         GroundCheck(rayOrigin);
     }
+
     protected void GroundCheck(Vector2 rayOrigin)
     {
         bool wasGrounded = isGrounded;
-        RaycastHit2D groundHit = Physics2D.Raycast(rayOrigin, Vector2.down, groundCheckDistance, groundLayer);
+        RaycastHit2D groundHit = Physics2D.BoxCast(rayOrigin, groundCheckBoxSize, 0, Vector2.down, groundCheckDistance, groundLayer);
+        //RaycastHit2D groundHit = Physics2D.Raycast(rayOrigin, Vector2.down, groundCheckDistance, groundLayer);
         isGrounded = !IsJumping && groundHit;
 
-        if (!wasGrounded && isGrounded)
-            transform.Translate(0, -groundHit.distance, 0);
-        else if (!isGrounded)
-            slope = Slope.None;
-        //supposed to compensate for moving up slope, but breaks a bunch of stuff
-        //else if (isTouchingGround && slope == Slope.None && groundHit.distance != 0)
+        //if (!wasGrounded && isGrounded)
         //    transform.Translate(0, -groundHit.distance, 0);
 
-        Debug.DrawRay(rayOrigin, Vector2.down * groundCheckDistance, Color.red);
-    }
-    private void SlopeCheck(Vector2 rayOrigin)
-    {
-        Slope oldSlope = slope;
-        RaycastHit2D slopeHitRight = Physics2D.Raycast(rayOrigin, Vector2.right, groundCheckDistance, groundLayer);
-        RaycastHit2D slopeHitLeft = Physics2D.Raycast(rayOrigin, Vector2.left, groundCheckDistance, groundLayer);
-        if (!slopeHitLeft && !slopeHitRight)
-            slope = Slope.None;
-        else if (slopeHitLeft && slopeHitRight)
-        {
-            slope = Slope.None;
-            transform.Translate(0, compensation, 0);
-        }
-        else if (slopeHitRight)
-            slope = Slope.Up;
-
-        else //slopeHitBack
-            slope = Slope.Down;
-
-        if (oldSlope != Slope.None && slope == Slope.None && isGrounded)
-            StartCoroutine(CompensateForSlopeUp());
-        Debug.DrawRay(rayOrigin, Vector2.right * groundCheckDistance, Color.green);
-        Debug.DrawRay(rayOrigin, Vector2.left * groundCheckDistance, Color.blue);
-    }
-
-    IEnumerator CompensateForSlopeUp()
-    {
-        yield return new WaitForSeconds(SlopeUpCompensation);
-        Vector2 rayOrigin = transform.position - new Vector3(0, ColliderSize.y / 2) + (Vector3)(CC.offset * transform.localScale);
-        RaycastHit2D floorHit = Physics2D.Raycast(rayOrigin, Vector2.down, groundCheckDistance, groundLayer);
-        if (floorHit && isGrounded && slope == Slope.None)
-        {
-            transform.Translate(0, -floorHit.distance, 0);
-        }
+        //Debug.DrawRay(rayOrigin, Vector2.down * groundCheckDistance, Color.red);
+        //Gizmos.color = new Color(1, 0, 0, 0.3f);
+        //Gizmos.DrawCube(transform.position - new Vector3(0, ColliderSize.y / 2) + (Vector3)(CC.offset * transform.localScale) + Vector3.down * groundCheckDistance, groundCheckBoxSize);
     }
 }
 
@@ -185,18 +141,16 @@ public class PlayerMove : GroundedCharacter
     [SerializeField] float stunnedGravityScale = 1;
     [SerializeField] float deadSpeed = 1;
     [SerializeField] float timeBeforeDeath = 4;
-    [SerializeField] PhysicsMaterial2D ragdollPhysics;
     private AudioManager audioManager;
 
     AudioSource audioSource;
     Animations currentAnimation = Animations.MCIdle;
 
     PlayerInputs inputs;
-    public bool stunned = false;
     float coyoteTimeElapsed = 0;
 
     public bool bouncedOnEnemy = false;
-    private bool isDead = false;
+    bool movementBlocked = false;
     public bool IsCoyoteTime
     {
         get => coyoteTimeElapsed < coyoteTime;
@@ -216,19 +170,18 @@ public class PlayerMove : GroundedCharacter
     }
     new private void FixedUpdate()
     {
-        if (isDead)
-        {
-            transform.Translate(deadSpeed * Time.fixedDeltaTime * Vector2.down);
-            return;
-        }
-        if (stunned)
-            return;
-
         newVelocity = Velocity;
         FloorCheck();
+        if (movementBlocked)
+        {
+            AddGravity();
+            AddDrag();
+            LimitVelocity();
+            Velocity = newVelocity;
+            return;
+        }
         SetHorizontalVelocity();
         AddGravity();
-        AddSlopeCompensation();
         CheckInputs();
         AddDrag();
         LimitVelocity();
@@ -239,7 +192,7 @@ public class PlayerMove : GroundedCharacter
 
     private void Update()
     {
-        if (stunned || isDead)
+        if (movementBlocked)
             return;
         if (isGrounded)
         {
@@ -312,20 +265,10 @@ public class PlayerMove : GroundedCharacter
     {
         coyoteTimeElapsed = 0;
     }
-    public void TakeKnockBack(Vector2 knockback)
+
+    public void StartCompleteLevel()
     {
-        SetAnimation(Animations.MCStunned);
-        currentAnimation = Animations.MCStunned;
-        RB.velocity = knockback;
-        RB.gravityScale = stunnedGravityScale;
-        stunned = true;
-        RB.sharedMaterial = ragdollPhysics;
-        //audioManager.PlaySFX(2);
-    }
-    public void Recover()
-    {
-        SetAnimation(Animations.MCIdle);
-        RB.gravityScale = 0;
-        stunned = false;
+        movementBlocked = true;
+        Velocity *= new Vector2(0, 1);
     }
 }
