@@ -150,7 +150,7 @@ AudioSource:
   m_GameObject: {fileID: 6437916262923054720}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6797780330604309627, guid: 1f339349906cdcd4ba2b37a764d40e93, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -373,6 +373,7 @@ MonoBehaviour:
   winMenu: {fileID: 0}
   playerMove: {fileID: 0}
   textBubble: {fileID: 8373229313841986191}
+  fadeOutSpeed: 2
 --- !u!1001 &1092639952034273175
 PrefabInstance:
   m_ObjectHideFlags: 0

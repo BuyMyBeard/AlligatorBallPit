@@ -11008,7 +11008,7 @@ AudioSource:
   m_GameObject: {fileID: 1075762357}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6797780330604309627, guid: 1f339349906cdcd4ba2b37a764d40e93, type: 2}
   m_audioClip: {fileID: 8300000, guid: ddccdf3729864124faf48dab6dfa2880, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -16548,25 +16548,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6349306751418381794, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
-      propertyPath: m_Size.x
-      value: 14.106898
+    - target: {fileID: 1616661473079207814, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
+      propertyPath: sfx.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3302a55676b075144a175ff7c7591936, type: 3}
+    - target: {fileID: 2583454480294180562, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 52a92fcff603afd469eb0ee14b661dd6, type: 3}
+    - target: {fileID: 2583454480294180562, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2583454480294180562, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -6797780330604309627, guid: 1f339349906cdcd4ba2b37a764d40e93, type: 2}
     - target: {fileID: 6349306751418381794, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
       propertyPath: m_Size.y
-      value: 0.8769398
-      objectReference: {fileID: 0}
-    - target: {fileID: 6349306751418381794, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.06240797
+      value: 0.5203278
       objectReference: {fileID: 0}
     - target: {fileID: 6349306751418381794, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
       propertyPath: m_Offset.y
-      value: -0.4368534
-      objectReference: {fileID: 0}
-    - target: {fileID: 6349306751418381794, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
+      value: -1.0736606
       objectReference: {fileID: 0}
     - target: {fileID: 6807204451087039337, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
       propertyPath: m_RootOrder
@@ -16612,21 +16616,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7588440079668878839, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
-      propertyPath: m_FlipX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7588440079668878839, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8714457809616556018, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
       propertyPath: m_Name
       value: Alligator
-      objectReference: {fileID: 0}
-    - target: {fileID: 8714457809616556018, guid: 1cd80bde9ecdc8244b55a4f2e2c46c2a, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17027,7 +17019,7 @@ AudioSource:
   m_GameObject: {fileID: 1530137368}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6797780330604309627, guid: 1f339349906cdcd4ba2b37a764d40e93, type: 2}
   m_audioClip: {fileID: 8300000, guid: ddccdf3729864124faf48dab6dfa2880, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

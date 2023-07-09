@@ -6,10 +6,14 @@ using UnityEngine;
 
 public class Alligator : MonoBehaviour
 {
+    AudioSource audioSource;
+    AudioManager audioManager;
     Animator animator;
     SpriteRenderer spriteRenderer;
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioManager = GetComponent<AudioManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
@@ -31,10 +35,16 @@ public class Alligator : MonoBehaviour
         started = true;
         spriteRenderer.enabled = true;
         animator.Play("Munch");
+        audioManager.PlaySFX(0);
         yield return new WaitForSeconds(3);
         animator.Play("Snap");
         while (true)
         {
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+            yield return new WaitForSeconds(1);
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+            audioSource.Play();
+            yield return new WaitForSeconds(1);
             spriteRenderer.flipX = !spriteRenderer.flipX;
             yield return new WaitForSeconds(1);
         }
