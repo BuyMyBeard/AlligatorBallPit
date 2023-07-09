@@ -38,7 +38,6 @@ public abstract class GroundedCharacter : MonoBehaviour
     [SerializeField] protected float waterMultiplier = 0.5f;
     [SerializeField] protected LayerMask waterLayer;
     protected float movementMultiplier = 1;
-    //AudioManagerComponent audioManager;
 
     protected bool isGrounded = false;
     protected Animator animator;
@@ -149,6 +148,7 @@ public class PlayerMove : GroundedCharacter
     [SerializeField] float timeBeforeDeath = 4;
     [SerializeField] TextBubble bottomText;
     private AudioManager audioManager;
+    [SerializeField] AudioSource swimSound;
 
     AudioSource audioSource;
     Animations currentAnimation = Animations.Initial;
@@ -321,6 +321,7 @@ public class PlayerMove : GroundedCharacter
             movementMultiplier = waterMultiplier;
             Submerged = true;
             animator.speed = 0.5f;
+            swimSound.Play();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -330,6 +331,7 @@ public class PlayerMove : GroundedCharacter
             movementMultiplier = 1;
             Submerged = false;
             animator.speed = 1;
+            swimSound.Stop();
         }
     }
 
