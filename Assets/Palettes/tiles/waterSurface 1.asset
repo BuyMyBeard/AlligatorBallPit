@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: waterSurface 1
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -800834933, guid: 0a24c9abc6d7b3347a388a0985cfb67d, type: 3}
   - {fileID: -807936663, guid: 0a24c9abc6d7b3347a388a0985cfb67d, type: 3}
   - {fileID: -898387526, guid: 0a24c9abc6d7b3347a388a0985cfb67d, type: 3}
-  m_MinSpeed: 1
-  m_MaxSpeed: 1
+  - {fileID: -800834933, guid: 0a24c9abc6d7b3347a388a0985cfb67d, type: 3}
+  m_MinSpeed: 4
+  m_MaxSpeed: 4
   m_AnimationStartTime: 0
-  m_AnimationStartFrame: 1
+  m_AnimationStartFrame: 0
   m_TileColliderType: 0
   m_TileAnimationFlags: 0

@@ -300,6 +300,7 @@ public class PlayerMove : GroundedCharacter
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision);
         if (waterLayer.IncludesLayer(collision.gameObject.layer))
             movementMultiplier = waterMultiplier;
     }
