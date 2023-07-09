@@ -7,7 +7,14 @@ static class LevelManager
     public static int unlockedLevels = PlayerPrefs.GetInt("unlockedLevels", 1);
     public const int LevelCount = 3;
 
-
+    public static void UnlockNextLevel()
+    {
+        if (currentLevel < LevelCount)
+        {
+            unlockedLevels = currentLevel + 1;
+            PlayerPrefs.SetInt("unlockedLevels", unlockedLevels);
+        }
+    }
     public static bool LoadNextLevel()
     {
         if (currentLevel == LevelCount)

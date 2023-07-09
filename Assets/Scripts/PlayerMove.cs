@@ -141,18 +141,16 @@ public class PlayerMove : GroundedCharacter
     [SerializeField] float stunnedGravityScale = 1;
     [SerializeField] float deadSpeed = 1;
     [SerializeField] float timeBeforeDeath = 4;
-    [SerializeField] PhysicsMaterial2D ragdollPhysics;
     private AudioManager audioManager;
 
     AudioSource audioSource;
     Animations currentAnimation = Animations.MCIdle;
 
     PlayerInputs inputs;
-    public bool stunned = false;
     float coyoteTimeElapsed = 0;
 
     public bool bouncedOnEnemy = false;
-    private bool isDead = false;
+    bool movementBlocked = false;
     public bool IsCoyoteTime
     {
         get => coyoteTimeElapsed < coyoteTime;
@@ -172,16 +170,16 @@ public class PlayerMove : GroundedCharacter
     }
     new private void FixedUpdate()
     {
-        if (isDead)
-        {
-            transform.Translate(deadSpeed * Time.fixedDeltaTime * Vector2.down);
-            return;
-        }
-        if (stunned)
-            return;
-
         newVelocity = Velocity;
         FloorCheck();
+        if (movementBlocked)
+        {
+            AddGravity();
+            AddDrag();
+            LimitVelocity();
+            Velocity = newVelocity;
+            return;
+        }
         SetHorizontalVelocity();
         AddGravity();
         CheckInputs();
@@ -194,7 +192,7 @@ public class PlayerMove : GroundedCharacter
 
     private void Update()
     {
-        if (stunned || isDead)
+        if (movementBlocked)
             return;
         if (isGrounded)
         {
@@ -267,20 +265,10 @@ public class PlayerMove : GroundedCharacter
     {
         coyoteTimeElapsed = 0;
     }
-    public void TakeKnockBack(Vector2 knockback)
+
+    public void StartCompleteLevel()
     {
-        SetAnimation(Animations.MCStunned);
-        currentAnimation = Animations.MCStunned;
-        RB.velocity = knockback;
-        RB.gravityScale = stunnedGravityScale;
-        stunned = true;
-        RB.sharedMaterial = ragdollPhysics;
-        //audioManager.PlaySFX(2);
-    }
-    public void Recover()
-    {
-        SetAnimation(Animations.MCIdle);
-        RB.gravityScale = 0;
-        stunned = false;
+        movementBlocked = true;
+        Velocity *= new Vector2(0, 1);
     }
 }

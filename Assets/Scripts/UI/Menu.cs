@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    bool pauseMenuBlocked = false;
+    public void BlockPauseMenu() => pauseMenuBlocked = true;
     public void MainMenu()
     {
         SceneManager.LoadScene("Main Menu");
@@ -34,6 +36,8 @@ public class Menu : MonoBehaviour
 
     public void TogglePause()
     {
+        if (pauseMenuBlocked)
+            return;
         if (Time.timeScale == 1)
             Pause();
         else
@@ -44,4 +48,5 @@ public class Menu : MonoBehaviour
         LevelManager.LoadNextLevel();
         Time.timeScale = 1;
     }
+
 }

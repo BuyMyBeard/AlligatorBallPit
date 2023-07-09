@@ -11,22 +11,25 @@ public class TextBubble : MonoBehaviour
     [SerializeField] float typingInterval = 0.04f;
     [SerializeField] float periodPause = 1f;
     [SerializeField] float commaPause = 0.5f;
+    [SerializeField] float bubbleIdleSpan = 3;
+    public bool IsWriting { get; private set; } = false;
     AudioSource audioSource;
     private void Awake()
     {
         textBox = GetComponentInChildren<TextMeshProUGUI>();
         audioSource = GetComponent<AudioSource>();
     }
-    private void OnEnable()
+    private void Clear() => textBox.text = "";
+    public void StartWrite(string text)
     {
         StopAllCoroutines();
-        StartWrite("I like nair cream on my butthole hair, it works well. I hope you try it too");
+        StartCoroutine(Write(text));
     }
-    private void Clear() => textBox.text = "";
-    public void StartWrite(string text) => StartCoroutine(Write(text));
     private IEnumerator Write(string text)
     {
+        gameObject.SetActive(true);
         Clear();
+        IsWriting = true;
         foreach (var c in text)
         {
             yield return new WaitForSeconds(typingInterval);
@@ -53,5 +56,8 @@ public class TextBubble : MonoBehaviour
                     break;
             }
         }
+        IsWriting = false;
+        yield return new WaitForSeconds(bubbleIdleSpan);
+        gameObject.SetActive(false);
     }
 }
