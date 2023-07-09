@@ -299,6 +299,7 @@ public class PlayerMove : GroundedCharacter
         yield return new WaitUntil(() => inputs.NudgeLeft && Time.timeScale == 1);
         frozen = false;
         transform.RotateAround(pivot, Vector3.forward, 8);
+        GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayMusic();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -31,6 +31,9 @@ static class LevelManager
 
     public static void LoadLevel(int level)
     {
+        if (level != 1)
+            GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayMusic();
+
         if (unlockedLevels < level)
             Debug.Log("Shouldn't be able to play this level");
         else

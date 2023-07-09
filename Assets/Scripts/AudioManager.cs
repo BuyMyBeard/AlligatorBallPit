@@ -15,7 +15,6 @@ public class AudioManager : MonoBehaviour
     {
         sfxSource.PlayOneShot(sfx[id], volumeScale);
     }
-
     public void PlayLoop()
     {
         sfxSource.Play();
