@@ -25,11 +25,11 @@ public class PlayerDrown : MonoBehaviour
             if (!playerMove.Submerged)
             {
                 airSlider.gameObject.SetActive(true);
-                airSlider.value -= fillRate * Time.deltaTime;
+                airSlider.value -= emptyRate * Time.deltaTime;
             }
             else
             {
-                airSlider.value += emptyRate * Time.deltaTime;
+                airSlider.value += fillRate * Time.deltaTime;
             }
         }
         else
@@ -39,11 +39,11 @@ public class PlayerDrown : MonoBehaviour
             if (playerMove.Submerged)
             {
                 airSlider.gameObject.SetActive(true);
-                airSlider.value -= fillRate * Time.deltaTime;
+                airSlider.value -= emptyRate * Time.deltaTime;
             }
             else
             {
-                airSlider.value += emptyRate * Time.deltaTime;
+                airSlider.value += fillRate * Time.deltaTime;
             }
         }
         if (airSlider.value <= 0)

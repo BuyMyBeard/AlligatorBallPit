@@ -306,6 +306,7 @@ public class PlayerMove : GroundedCharacter
         {
             movementMultiplier = waterMultiplier;
             Submerged = true;
+            animator.speed = 0.5f;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -314,10 +315,11 @@ public class PlayerMove : GroundedCharacter
         {
             movementMultiplier = 1;
             Submerged = false;
+            animator.speed = 1;
         }
     }
 
-    internal void Drown()
+    public void Drown()
     {
         throw new NotImplementedException();
     }

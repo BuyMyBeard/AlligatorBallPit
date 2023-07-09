@@ -24,7 +24,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - waterTrigger
   - 
   - 
   - 
@@ -40,7 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: ForegroundTiles
-    uniqueID: 3685771267
     locked: 0
