@@ -11,6 +11,7 @@ public class MessageTrigger : MonoBehaviour
     {
         if (!triggered)
         {
+            triggered = true;
             textBubble.StartWrite(message);
         }
     }

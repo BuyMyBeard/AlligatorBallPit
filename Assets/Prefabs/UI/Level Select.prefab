@@ -605,6 +605,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: empty button (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7680037696312994722, guid: 59dc71b5f026f0440ba6d8f0777ac6a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -913,7 +917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5151373530666520638, guid: 59dc71b5f026f0440ba6d8f0777ac6a9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -180
+      value: -91
       objectReference: {fileID: 0}
     - target: {fileID: 5151373530666520638, guid: 59dc71b5f026f0440ba6d8f0777ac6a9, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1023,7 +1027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5151373530666520638, guid: 59dc71b5f026f0440ba6d8f0777ac6a9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -7
+      value: 82
       objectReference: {fileID: 0}
     - target: {fileID: 5151373530666520638, guid: 59dc71b5f026f0440ba6d8f0777ac6a9, type: 3}
       propertyPath: m_AnchoredPosition.y

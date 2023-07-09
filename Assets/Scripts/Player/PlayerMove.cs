@@ -137,7 +137,7 @@ public abstract class GroundedCharacter : MonoBehaviour
 //[RequireComponent(typeof(PlayerInputs))]
 public class PlayerMove : GroundedCharacter
 {
-    enum Animations { Initial, Idle, Walk, Jump, Fall, Open };
+    enum Animations { Initial, Idle, Walk, Jump, Fall, Open, Blood };
     [Space(20)]
     [Header("Player")]
     [Space(10)]
@@ -245,7 +245,7 @@ public class PlayerMove : GroundedCharacter
     {
         if (inputs.JumpPressInput && (isGrounded || IsCoyoteTime) && !IsJumping)
         {
-            //audioManager.PlaySFX(0);
+            audioManager.PlaySFX(0);
             newVelocity.y = jumpVelocity;
             SetAnimation(Animations.Jump);
         }
@@ -346,7 +346,8 @@ public class PlayerMove : GroundedCharacter
     public void EatenByAlligator()
     {
         Frozen = true;
-        SetAnimation(Animations.Fall);
+        Velocity = Vector2.zero;
+        SetAnimation(Animations.Blood);
         bottomText.StartWrite("Seems like you didn't read the name of the game. I wonder what you were expecting.");
         FindObjectOfType<GuyComponent>().Cry();
     }

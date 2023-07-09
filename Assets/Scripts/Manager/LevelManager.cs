@@ -5,7 +5,7 @@ static class LevelManager
 {
     public static int currentLevel = 0;
     public static int unlockedLevels = PlayerPrefs.GetInt("unlockedLevels", 1);
-    public const int LevelCount = 6;
+    public const int LevelCount = 5;
     
     public static void UnlockNextLevel()
     {
