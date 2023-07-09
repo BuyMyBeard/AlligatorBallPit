@@ -336,9 +336,9 @@ public class PlayerMove : GroundedCharacter
         FindObjectOfType<CinemachineVirtualCamera>().Follow = null;
         RB.gravityScale = 1;
         RB.velocity = new Vector2(0, 3);
-        if (LevelManager.currentLevel == 2)
+        if (LevelManager.currentLevel == 4)
             bottomText.StartWrite("A door drowning in the air sounds fishy...");
-        else if (LevelManager.currentLevel == 3)
+        else if (LevelManager.currentLevel == 5)
             bottomText.StartWrite("Seems like doors can't breathe underwater after all... Wait What?");
         FindObjectOfType<GuyComponent>().Cry();
     }
