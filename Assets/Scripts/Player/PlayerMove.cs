@@ -347,7 +347,6 @@ public class PlayerMove : GroundedCharacter
     {
         Frozen = true;
         Sprite.enabled = false;
-        FindObjectOfType<CinemachineVirtualCamera>().Follow = null;
         bottomText.StartWrite("Seems like you didn't read the name of the game. I wonder what you were expecting.");
         FindObjectOfType<GuyComponent>().Cry();
     }
