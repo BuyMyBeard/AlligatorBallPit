@@ -137,7 +137,7 @@ public abstract class GroundedCharacter : MonoBehaviour
 //[RequireComponent(typeof(PlayerInputs))]
 public class PlayerMove : GroundedCharacter
 {
-    enum Animations { Initial, Idle, Walk, Jump, Fall, Open, Blood };
+    enum Animations { Initial, Idle, Walk, Jump, Fall, Open, Blood, Splat };
     [Space(20)]
     [Header("Player")]
     [Space(10)]
@@ -357,6 +357,21 @@ public class PlayerMove : GroundedCharacter
         Frozen = true;
         Velocity = Vector2.zero;
         Sprite.enabled = false;
+    }
+    public void Splat()
+    {
+        Frozen = true;
+        Velocity = Vector2.zero;
+        SetAnimation(Animations.Splat);
+    }
+
+    public void StartSling()
+    {
+        MovementBlocked = true;
+        transform.Translate(0.3f * Vector3.up);
+        Velocity = new Vector2(20, 8);
+        Sprite.flipX = false;
+        SetAnimation(Animations.Fall);
     }
 }
 public static class ExtensionMethods
