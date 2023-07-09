@@ -5,9 +5,12 @@ using UnityEngine;
 public class GuyComponent : MonoBehaviour
 {
     [SerializeField] Menu winMenu;
+    [SerializeField] PlayerMove playerMove;
     [SerializeField] TextBubble textBubble;
     private void Awake()
     {
+        if (LevelManager.currentLevel == 1)
+            StartCoroutine(Level1Sequence());
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -22,5 +25,11 @@ public class GuyComponent : MonoBehaviour
         yield return new WaitForSeconds(2);
         winMenu.gameObject.SetActive(true);
     }
-
+    IEnumerator Level1Sequence()
+    {
+        yield return new WaitForSeconds(0.5f);
+        textBubble.StartWrite("I have to reach that door!");
+        yield return new WaitUntil(() => !playerMove.Frozen && !textBubble.IsWriting);
+        textBubble.StartWrite("Come to Papa!");
+    }
 }

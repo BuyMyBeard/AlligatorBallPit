@@ -155,7 +155,7 @@ public class PlayerMove : GroundedCharacter
     float coyoteTimeElapsed = 0;
 
     bool movementBlocked = false;
-    bool frozen = false;
+    public bool Frozen { get; private set; } = false;
     public bool IsCoyoteTime
     {
         get => coyoteTimeElapsed < coyoteTime;
@@ -177,7 +177,7 @@ public class PlayerMove : GroundedCharacter
     }
     new private void FixedUpdate()
     {
-        if (frozen)
+        if (Frozen)
             return;
         newVelocity = Velocity;
         FloorCheck();
@@ -201,7 +201,7 @@ public class PlayerMove : GroundedCharacter
 
     private void Update()
     {
-        if (movementBlocked || frozen)
+        if (movementBlocked || Frozen)
             return;
         if (IsFalling)
         {
@@ -284,7 +284,7 @@ public class PlayerMove : GroundedCharacter
     IEnumerator IntroAnimation()
     {
         Vector3 pivot = transform.position + ColliderSize.y * Vector3.down;
-        frozen = true;
+        Frozen = true;
 
         yield return new WaitUntil(() => inputs.NudgeRight && Time.timeScale == 1);
         transform.RotateAround(pivot, Vector3.forward, -3);
@@ -297,7 +297,7 @@ public class PlayerMove : GroundedCharacter
         yield return new WaitUntil(() => inputs.NudgeRight && Time.timeScale == 1);
         transform.RotateAround(pivot, Vector3.forward, -13);
         yield return new WaitUntil(() => inputs.NudgeLeft && Time.timeScale == 1);
-        frozen = false;
+        Frozen = false;
         transform.RotateAround(pivot, Vector3.forward, 8);
         GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayMusic();
     }
