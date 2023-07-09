@@ -346,7 +346,8 @@ public class PlayerMove : GroundedCharacter
     public void EatenByAlligator()
     {
         Frozen = true;
-        SetAnimation(Animations.Fall);
+        Sprite.enabled = false;
+        FindObjectOfType<CinemachineVirtualCamera>().Follow = null;
         bottomText.StartWrite("Seems like you didn't read the name of the game. I wonder what you were expecting.");
         FindObjectOfType<GuyComponent>().Cry();
     }

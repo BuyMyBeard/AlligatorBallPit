@@ -113,6 +113,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 847237226258317451}
     m_Modifications:
+    - target: {fileID: 1052391376095500035, guid: 005833e6ea182be4891611f3b39c83c2, type: 3}
+      propertyPath: m_fontColor.a
+      value: 0.7921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052391376095500035, guid: 005833e6ea182be4891611f3b39c83c2, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 3391492399
+      objectReference: {fileID: 0}
+    - target: {fileID: 1959496557868374400, guid: 005833e6ea182be4891611f3b39c83c2, type: 3}
+      propertyPath: m_Color.a
+      value: 0.59607846
+      objectReference: {fileID: 0}
     - target: {fileID: 3090848260983056673, guid: 005833e6ea182be4891611f3b39c83c2, type: 3}
       propertyPath: m_Name
       value: TextBubble
