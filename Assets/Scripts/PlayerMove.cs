@@ -41,6 +41,7 @@ public abstract class GroundedCharacter : MonoBehaviour
 
     protected bool isGrounded = false;
     protected Animator animator;
+    public bool Submerged { get; protected set; } = false;
     public SpriteRenderer Sprite { get; set; }
     public Rigidbody2D RB { get; protected set; }
     public CapsuleCollider2D CC { get; protected set; }
@@ -302,14 +303,24 @@ public class PlayerMove : GroundedCharacter
     {
         Debug.Log(collision);
         if (waterLayer.IncludesLayer(collision.gameObject.layer))
+        {
             movementMultiplier = waterMultiplier;
+            Submerged = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (waterLayer.IncludesLayer(collision.gameObject.layer))
+        {
             movementMultiplier = 1;
+            Submerged = false;
+        }
     }
 
+    internal void Drown()
+    {
+        throw new NotImplementedException();
+    }
 }
 public static class ExtensionMethods
 {
