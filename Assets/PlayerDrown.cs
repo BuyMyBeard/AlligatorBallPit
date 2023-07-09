@@ -18,6 +18,12 @@ public class PlayerDrown : MonoBehaviour
     }
     void Update()
     {
+        if (playerMove.MovementBlocked)
+        {
+            airSlider.gameObject.SetActive(false);
+            enabled = false;
+            return;
+        }
         if (inverted)
         {
             if (airSlider.value >= 1)
@@ -49,6 +55,7 @@ public class PlayerDrown : MonoBehaviour
         if (airSlider.value <= 0)
         {
             playerMove.Drown();
+            enabled = false;
         }
     }
 }

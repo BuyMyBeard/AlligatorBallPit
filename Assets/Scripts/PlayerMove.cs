@@ -1,3 +1,4 @@
+using Cinemachine;
 using JetBrains.Annotations;
 using System;
 using System.Collections;
@@ -146,6 +147,7 @@ public class PlayerMove : GroundedCharacter
     [SerializeField] float stunnedGravityScale = 1;
     [SerializeField] float deadSpeed = 1;
     [SerializeField] float timeBeforeDeath = 4;
+    [SerializeField] TextBubble bottomText;
     private AudioManager audioManager;
 
     AudioSource audioSource;
@@ -154,7 +156,7 @@ public class PlayerMove : GroundedCharacter
     PlayerInputs inputs;
     float coyoteTimeElapsed = 0;
 
-    bool movementBlocked = false;
+    public bool MovementBlocked { get; private set; } = false;
     public bool Frozen { get; private set; } = false;
     public bool IsCoyoteTime
     {
@@ -181,7 +183,7 @@ public class PlayerMove : GroundedCharacter
             return;
         newVelocity = Velocity;
         FloorCheck();
-        if (movementBlocked)
+        if (MovementBlocked)
         {
             AddGravity();
             AddDrag();
@@ -201,7 +203,7 @@ public class PlayerMove : GroundedCharacter
 
     private void Update()
     {
-        if (movementBlocked || Frozen)
+        if (MovementBlocked || Frozen)
             return;
         if (IsFalling)
         {
@@ -277,7 +279,7 @@ public class PlayerMove : GroundedCharacter
 
     public void StartCompleteLevel()
     {
-        movementBlocked = true;
+        MovementBlocked = true;
         SetAnimation(Animations.Initial);
         Velocity *= new Vector2(0, 1);
     }
@@ -322,7 +324,14 @@ public class PlayerMove : GroundedCharacter
 
     public void Drown()
     {
-        throw new NotImplementedException();
+        CC.enabled = false;
+        Frozen = true;
+        SetAnimation(Animations.Fall);
+        GetComponent<SpriteRenderer>().sortingOrder = 30;
+        FindObjectOfType<CinemachineVirtualCamera>().Follow = null;
+        RB.gravityScale = 1;
+        RB.velocity = new Vector2(0, 3);
+        bottomText.StartWrite("A door drowning in the air sounds fishy...");
     }
 }
 public static class ExtensionMethods

@@ -8,8 +8,8 @@ public class GuyComponent : MonoBehaviour
     [SerializeField] Menu winMenu;
     [SerializeField] PlayerMove playerMove;
     [SerializeField] TextBubble textBubble;
-    [SerializeField] SpriteRenderer sprite;
     [SerializeField] float fadeOutSpeed = 2f;
+    SpriteRenderer sprite;
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
