@@ -331,7 +331,18 @@ public class PlayerMove : GroundedCharacter
         FindObjectOfType<CinemachineVirtualCamera>().Follow = null;
         RB.gravityScale = 1;
         RB.velocity = new Vector2(0, 3);
-        bottomText.StartWrite("A door drowning in the air sounds fishy...");
+        if (LevelManager.currentLevel == 2)
+            bottomText.StartWrite("A door drowning in the air sounds fishy...");
+        else if (LevelManager.currentLevel == 3)
+            bottomText.StartWrite("Seems like doors can't breathe underwater after all... Wait What?");
+        FindObjectOfType<GuyComponent>().Cry();
+    }
+
+    public void EatenByAlligator()
+    {
+        Frozen = true;
+        SetAnimation(Animations.Fall);
+        bottomText.StartWrite("Seems like you didn't read the name of the game. I wonder what you were expecting.");
         FindObjectOfType<GuyComponent>().Cry();
     }
 }
