@@ -44,6 +44,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.9458
       objectReference: {fileID: 0}
+    - target: {fileID: 6310754461281392666, guid: 005833e6ea182be4891611f3b39c83c2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 614eb36a9a70fc54fb0c3d242ea749fb, type: 3}
     - target: {fileID: 7600468868000411015, guid: 005833e6ea182be4891611f3b39c83c2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

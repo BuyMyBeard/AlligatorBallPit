@@ -54,7 +54,7 @@ public class PlayerInputs : MonoBehaviour {
         jump.performed += _ => JumpHoldInput = true;
         jump.canceled += _ => JumpHoldInput = false;
         pause.Enable();
-        pause.started += _ => menu.TogglePause();
+        pause.started += _ => GameObject.FindGameObjectWithTag("Pause Menu").GetComponentInChildren<Menu>().TogglePause();
         nudgeLeft.Enable();
         nudgeRight.Enable();
         nudgeLeft.started += _ => StartCoroutine(TapLeft());

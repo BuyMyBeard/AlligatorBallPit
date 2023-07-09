@@ -55,6 +55,8 @@ MonoBehaviour:
   typingInterval: 0.04
   periodPause: 1
   commaPause: 0.5
+  bubbleIdleSpan: 3
+  cooldown: 1
 --- !u!82 &6310754461281392666
 AudioSource:
   m_ObjectHideFlags: 0
@@ -65,9 +67,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -6797780330604309627, guid: 1f339349906cdcd4ba2b37a764d40e93, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 89eb5903a352f984c9c8319c2299d741, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9b47e4b2ac048ee44842d290c932b584, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

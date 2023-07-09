@@ -292,16 +292,22 @@ public class PlayerMove : GroundedCharacter
         Frozen = true;
 
         yield return new WaitUntil(() => inputs.NudgeRight && Time.timeScale == 1);
+        audioManager.PlaySFX(1);
         transform.RotateAround(pivot, Vector3.forward, -3);
         yield return new WaitUntil(() => inputs.NudgeLeft && Time.timeScale == 1);
+        audioManager.PlaySFX(1);
         transform.RotateAround(pivot, Vector3.forward, 6);
         yield return new WaitUntil(() => inputs.NudgeRight && Time.timeScale == 1);
+        audioManager.PlaySFX(1);
         transform.RotateAround(pivot, Vector3.forward, -8);
         yield return new WaitUntil(() => inputs.NudgeLeft && Time.timeScale == 1);
+        audioManager.PlaySFX(1);
         transform.RotateAround(pivot, Vector3.forward, 10);
         yield return new WaitUntil(() => inputs.NudgeRight && Time.timeScale == 1);
+        audioManager.PlaySFX(1);
         transform.RotateAround(pivot, Vector3.forward, -13);
         yield return new WaitUntil(() => inputs.NudgeLeft && Time.timeScale == 1);
+        audioManager.PlaySFX(1);
         Frozen = false;
         transform.RotateAround(pivot, Vector3.forward, 8);
 
@@ -363,6 +369,7 @@ public class PlayerMove : GroundedCharacter
         Frozen = true;
         Velocity = Vector2.zero;
         SetAnimation(Animations.Splat);
+        audioManager.PlaySFX(2);
     }
 
     public void StartSling()

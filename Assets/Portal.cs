@@ -24,6 +24,7 @@ public class Portal : MonoBehaviour
         yield return new WaitForSeconds(3);
         sprite.enabled = true;
         animator.Play("Default");
+        sfx.PlaySFX(0);
         guyComponent.Cry();
         yield return new WaitForSeconds(1.2f);
         sprite.enabled = false;
@@ -33,6 +34,7 @@ public class Portal : MonoBehaviour
     {
         collision.GetComponent<PlayerMove>().TakePortal();
         otherPortal.StartBloodSplatter();
+        sfx.PlaySFX(1);
     }
 
 
