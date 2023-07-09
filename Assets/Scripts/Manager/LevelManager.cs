@@ -9,7 +9,7 @@ static class LevelManager
 
     public static void UnlockNextLevel()
     {
-        if (currentLevel < LevelCount)
+        if (currentLevel < LevelCount && currentLevel == unlockedLevels)
         {
             unlockedLevels = currentLevel + 1;
             PlayerPrefs.SetInt("unlockedLevels", unlockedLevels);

@@ -131,7 +131,7 @@ public abstract class GroundedCharacter : MonoBehaviour
 [RequireComponent(typeof(PlayerInputs))]
 public class PlayerMove : GroundedCharacter
 {
-    enum Animations { MCStunned, MCIdle, MCRun, MCRaising, MCFalling, MCDying };
+    enum Animations { Initial, Idle, Walk, Jump, Fall };
     [Space(20)]
     [Header("Player")]
     [Space(10)]
@@ -144,7 +144,7 @@ public class PlayerMove : GroundedCharacter
     private AudioManager audioManager;
 
     AudioSource audioSource;
-    Animations currentAnimation = Animations.MCIdle;
+    Animations currentAnimation = Animations.Initial;
 
     PlayerInputs inputs;
     float coyoteTimeElapsed = 0;
@@ -197,17 +197,13 @@ public class PlayerMove : GroundedCharacter
         if (isGrounded)
         {
             if (Velocity.x != 0)
-                SetAnimation(Animations.MCRun);
+                SetAnimation(Animations.Walk);
             else
-                SetAnimation(Animations.MCIdle);
+                SetAnimation(Animations.Idle);
         }
-        else
-        {
-            if (Velocity.y <= 0)
-                SetAnimation(Animations.MCFalling);
-            else
-                SetAnimation(Animations.MCRaising);
-        }
+        else if (currentAnimation != Animations.Jump)
+            SetAnimation(Animations.Fall);
+        
     }
 
     private void SetAnimation(Animations animation)
@@ -228,11 +224,12 @@ public class PlayerMove : GroundedCharacter
     }
     private void CheckInputs()
     {
-        if ((inputs.JumpPressInput && (isGrounded || IsCoyoteTime) && !IsJumping) || bouncedOnEnemy)
+        if (inputs.JumpPressInput && (isGrounded || IsCoyoteTime) && !IsJumping)
         {
             //audioManager.PlaySFX(0);
             newVelocity.y = jumpVelocity;
             bouncedOnEnemy = false;
+            SetAnimation(Animations.Jump);
         }
     }
 
