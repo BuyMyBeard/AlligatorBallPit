@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GuyComponent : MonoBehaviour
 {
     [SerializeField] Menu winMenu;
     [SerializeField] PlayerMove playerMove;
     [SerializeField] TextBubble textBubble;
+    [SerializeField] SpriteRenderer sprite;
+    [SerializeField] float fadeOutSpeed = 2f;
     private void Awake()
     {
+        sprite = GetComponent<SpriteRenderer>();
         if (LevelManager.currentLevel == 1)
             StartCoroutine(Level1Sequence());
     }
@@ -22,7 +26,9 @@ public class GuyComponent : MonoBehaviour
     {
         LevelManager.UnlockNextLevel();
         winMenu.BlockPauseMenu();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
+        StartCoroutine(FadeOut());
+        yield return new WaitForSeconds(1);
         winMenu.gameObject.SetActive(true);
     }
     IEnumerator Level1Sequence()
@@ -31,5 +37,15 @@ public class GuyComponent : MonoBehaviour
         textBubble.StartWrite("I have to reach that door!");
         yield return new WaitUntil(() => !playerMove.Frozen && !textBubble.IsWriting);
         textBubble.StartWrite("Come to Papa!");
+    }
+    public IEnumerator FadeOut()
+    {
+        for (float t = 0; t <= 1.1; t += Time.deltaTime * fadeOutSpeed)
+        {
+            Color c = sprite.color;
+            c.a = 1 - t;
+            sprite.color = c;
+            yield return null;
+        }
     }
 }
