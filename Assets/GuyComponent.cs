@@ -10,8 +10,10 @@ public class GuyComponent : MonoBehaviour
     [SerializeField] TextBubble textBubble;
     [SerializeField] float fadeOutSpeed = 2f;
     SpriteRenderer sprite;
+    Animator animator;
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         if (LevelManager.currentLevel == 1)
             StartCoroutine(Level1Sequence());
@@ -47,5 +49,9 @@ public class GuyComponent : MonoBehaviour
             sprite.color = c;
             yield return null;
         }
+    }
+    public void Cry()
+    {
+        animator.Play("Crying");
     }
 }

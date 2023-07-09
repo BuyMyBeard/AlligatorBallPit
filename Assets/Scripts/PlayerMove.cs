@@ -332,6 +332,7 @@ public class PlayerMove : GroundedCharacter
         RB.gravityScale = 1;
         RB.velocity = new Vector2(0, 3);
         bottomText.StartWrite("A door drowning in the air sounds fishy...");
+        FindObjectOfType<GuyComponent>().Cry();
     }
 }
 public static class ExtensionMethods
