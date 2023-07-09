@@ -36,7 +36,7 @@ public abstract class GroundedCharacter : MonoBehaviour
     [SerializeField] Vector2 groundCheckBoxSize = Vector2.one;
     [SerializeField] protected float waterMultiplier = 0.5f;
     [SerializeField] protected LayerMask waterLayer;
-    protected float movementMultiplier;
+    protected float movementMultiplier = 1;
     //AudioManagerComponent audioManager;
 
     protected bool isGrounded = false;
