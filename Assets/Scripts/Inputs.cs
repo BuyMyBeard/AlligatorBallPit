@@ -53,6 +53,24 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Nudge Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa0ab3d8-c3cb-444d-9196-7265400141a1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Nudge Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""671b4601-a86c-42d7-a690-5582f5371047"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -198,6 +216,50 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fc174a8-2a28-43e1-b1e6-8d11abb44aaf"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Nudge Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e3f12d9-d6f5-4117-97c4-577840418bb3"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Nudge Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d087dd5-89c1-4100-8ff7-3bd4a12f58c7"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Nudge Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ea5cced-4189-4017-b5e0-643564d751b3"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Nudge Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -209,6 +271,8 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_NudgeLeft = m_Player.FindAction("Nudge Left", throwIfNotFound: true);
+        m_Player_NudgeRight = m_Player.FindAction("Nudge Right", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,6 +337,8 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_NudgeLeft;
+    private readonly InputAction m_Player_NudgeRight;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -280,6 +346,8 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @NudgeLeft => m_Wrapper.m_Player_NudgeLeft;
+        public InputAction @NudgeRight => m_Wrapper.m_Player_NudgeRight;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -298,6 +366,12 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @NudgeLeft.started += instance.OnNudgeLeft;
+            @NudgeLeft.performed += instance.OnNudgeLeft;
+            @NudgeLeft.canceled += instance.OnNudgeLeft;
+            @NudgeRight.started += instance.OnNudgeRight;
+            @NudgeRight.performed += instance.OnNudgeRight;
+            @NudgeRight.canceled += instance.OnNudgeRight;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -311,6 +385,12 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @NudgeLeft.started -= instance.OnNudgeLeft;
+            @NudgeLeft.performed -= instance.OnNudgeLeft;
+            @NudgeLeft.canceled -= instance.OnNudgeLeft;
+            @NudgeRight.started -= instance.OnNudgeRight;
+            @NudgeRight.performed -= instance.OnNudgeRight;
+            @NudgeRight.canceled -= instance.OnNudgeRight;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -333,5 +413,7 @@ public partial class @Inputs: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnNudgeLeft(InputAction.CallbackContext context);
+        void OnNudgeRight(InputAction.CallbackContext context);
     }
 }

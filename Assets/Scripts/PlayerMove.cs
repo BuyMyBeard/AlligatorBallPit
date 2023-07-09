@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,6 +34,9 @@ public abstract class GroundedCharacter : MonoBehaviour
     [SerializeField] protected PhysicsMaterial2D noFriction;
     [SerializeField] protected PhysicsMaterial2D highFriction;
     [SerializeField] Vector2 groundCheckBoxSize = Vector2.one;
+    [SerializeField] protected float waterMultiplier = 0.5f;
+    [SerializeField] protected LayerMask waterLayer;
+    protected float movementMultiplier;
     //AudioManagerComponent audioManager;
 
     protected bool isGrounded = false;
@@ -86,8 +90,8 @@ public abstract class GroundedCharacter : MonoBehaviour
 
     protected virtual void LimitVelocity()
     {
-        if (newVelocity.y < terminalVelocity)
-            newVelocity.y = terminalVelocity;
+        if (newVelocity.y < terminalVelocity * movementMultiplier)
+            newVelocity.y = terminalVelocity * movementMultiplier;
     }
 
     protected virtual void AddGravity()
@@ -99,7 +103,7 @@ public abstract class GroundedCharacter : MonoBehaviour
         }
         else
         {
-            newVelocity.y += gravAcceleration * Time.deltaTime;
+            newVelocity.y += gravAcceleration * waterMultiplier * Time.deltaTime;
             RB.sharedMaterial = noFriction;
         }
     }
@@ -149,8 +153,8 @@ public class PlayerMove : GroundedCharacter
     PlayerInputs inputs;
     float coyoteTimeElapsed = 0;
 
-    public bool bouncedOnEnemy = false;
     bool movementBlocked = false;
+    bool frozen = false;
     public bool IsCoyoteTime
     {
         get => coyoteTimeElapsed < coyoteTime;
@@ -163,6 +167,8 @@ public class PlayerMove : GroundedCharacter
         inputs = GetComponent<PlayerInputs>();
         animator = GetComponent<Animator>();
         //sfx = GetComponent<AudioManagerComponent>();
+        if (LevelManager.currentLevel == 1)
+            StartCoroutine(IntroAnimation());
     }
     private void Start()
     {
@@ -170,6 +176,8 @@ public class PlayerMove : GroundedCharacter
     }
     new private void FixedUpdate()
     {
+        if (frozen)
+            return;
         newVelocity = Velocity;
         FloorCheck();
         if (movementBlocked)
@@ -192,18 +200,23 @@ public class PlayerMove : GroundedCharacter
 
     private void Update()
     {
-        if (movementBlocked)
+        if (movementBlocked || frozen)
             return;
-        if (isGrounded)
+        if (IsFalling)
+        {
+            SetAnimation(Animations.Fall);
+        }
+        else if (IsJumping)
+        {
+            SetAnimation(Animations.Jump);
+        }
+        else if (isGrounded)
         {
             if (Velocity.x != 0)
                 SetAnimation(Animations.Walk);
             else
                 SetAnimation(Animations.Idle);
         }
-        else if (currentAnimation != Animations.Jump)
-            SetAnimation(Animations.Fall);
-        
     }
 
     private void SetAnimation(Animations animation)
@@ -218,7 +231,7 @@ public class PlayerMove : GroundedCharacter
 
     private void SetHorizontalVelocity()
     {
-        newVelocity.x = inputs.MoveInput.x * horizontalSpeed;
+        newVelocity.x = inputs.MoveInput.x * horizontalSpeed * movementMultiplier;
         if (inputs.MoveInput.x != 0)
             Sprite.flipX = inputs.MoveInput.x < 0;
     }
@@ -228,7 +241,6 @@ public class PlayerMove : GroundedCharacter
         {
             //audioManager.PlaySFX(0);
             newVelocity.y = jumpVelocity;
-            bouncedOnEnemy = false;
             SetAnimation(Animations.Jump);
         }
     }
@@ -242,7 +254,7 @@ public class PlayerMove : GroundedCharacter
         }
         else
         {
-            newVelocity.y += gravAcceleration * Time.deltaTime;
+            newVelocity.y += gravAcceleration * movementMultiplier * Time.deltaTime;
             coyoteTimeElapsed += Time.deltaTime;
             RB.sharedMaterial = noFriction;
         }
@@ -257,7 +269,6 @@ public class PlayerMove : GroundedCharacter
                 newVelocity.y += holdingJumpDrag * Time.deltaTime;
         }
     }
-
     public void ResetCoyoteTime()
     {
         coyoteTimeElapsed = 0;
@@ -268,4 +279,38 @@ public class PlayerMove : GroundedCharacter
         movementBlocked = true;
         Velocity *= new Vector2(0, 1);
     }
+    IEnumerator IntroAnimation()
+    {
+        Vector3 pivot = transform.position + ColliderSize.y * Vector3.down;
+        frozen = true;
+
+        yield return new WaitUntil(() => inputs.NudgeRight && Time.timeScale == 1);
+        transform.RotateAround(pivot, Vector3.forward, -3);
+        yield return new WaitUntil(() => inputs.NudgeLeft && Time.timeScale == 1);
+        transform.RotateAround(pivot, Vector3.forward, 6);
+        yield return new WaitUntil(() => inputs.NudgeRight && Time.timeScale == 1);
+        transform.RotateAround(pivot, Vector3.forward, -8);
+        yield return new WaitUntil(() => inputs.NudgeLeft && Time.timeScale == 1);
+        transform.RotateAround(pivot, Vector3.forward, 10);
+        yield return new WaitUntil(() => inputs.NudgeRight && Time.timeScale == 1);
+        transform.RotateAround(pivot, Vector3.forward, -13);
+        yield return new WaitUntil(() => inputs.NudgeLeft && Time.timeScale == 1);
+        frozen = false;
+        transform.RotateAround(pivot, Vector3.forward, 8);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (waterLayer.IncludesLayer(collision.gameObject.layer))
+            movementMultiplier = waterMultiplier;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (waterLayer.IncludesLayer(collision.gameObject.layer))
+            movementMultiplier = 1;
+    }
+
+}
+public static class ExtensionMethods
+{
+    public static bool IncludesLayer(this LayerMask mask, int layer) => mask == (mask | (1 << layer));
 }
