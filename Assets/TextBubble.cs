@@ -12,6 +12,7 @@ public class TextBubble : MonoBehaviour
     [SerializeField] float periodPause = 1f;
     [SerializeField] float commaPause = 0.5f;
     [SerializeField] float bubbleIdleSpan = 3;
+    [SerializeField] float cooldown = 1f;
     public bool IsWriting { get; private set; } = false;
     AudioSource audioSource;
     private void Awake()
@@ -22,12 +23,12 @@ public class TextBubble : MonoBehaviour
     private void Clear() => textBox.text = "";
     public void StartWrite(string text)
     {
+        gameObject.SetActive(true);
         StopAllCoroutines();
         StartCoroutine(Write(text));
     }
     private IEnumerator Write(string text)
     {
-        gameObject.SetActive(true);
         Clear();
         IsWriting = true;
         foreach (var c in text)
@@ -56,8 +57,9 @@ public class TextBubble : MonoBehaviour
                     break;
             }
         }
+        yield return new WaitForSeconds(cooldown);
         IsWriting = false;
-        yield return new WaitForSeconds(bubbleIdleSpan);
+        yield return new WaitForSeconds(bubbleIdleSpan - cooldown);
         gameObject.SetActive(false);
     }
 }

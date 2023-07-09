@@ -25,7 +25,7 @@ static class LevelManager
             unlockedLevels = currentLevel;
             PlayerPrefs.SetInt("unlockedLevels", unlockedLevels);
         }
-        SceneManager.LoadScene("Level " +  currentLevel);
+        SceneManager.LoadScene("Level " + currentLevel);
         return true;
     }
 
