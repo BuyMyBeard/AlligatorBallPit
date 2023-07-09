@@ -137,7 +137,7 @@ public abstract class GroundedCharacter : MonoBehaviour
 //[RequireComponent(typeof(PlayerInputs))]
 public class PlayerMove : GroundedCharacter
 {
-    enum Animations { Initial, Idle, Walk, Jump, Fall };
+    enum Animations { Initial, Idle, Walk, Jump, Fall, Open };
     [Space(20)]
     [Header("Player")]
     [Space(10)]
@@ -283,7 +283,7 @@ public class PlayerMove : GroundedCharacter
     public void StartCompleteLevel()
     {
         MovementBlocked = true;
-        SetAnimation(Animations.Initial);
+        SetAnimation(Animations.Open);
         Velocity *= new Vector2(0, 1);
     }
     IEnumerator IntroAnimation()
