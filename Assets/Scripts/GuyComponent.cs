@@ -55,4 +55,8 @@ public class GuyComponent : MonoBehaviour
         animator.Play("Crying");
         textBubble.StartWrite("Oh no!");
     }
+    public void Say(string text)
+    {
+        textBubble.StartWrite(text);
+    }
 }

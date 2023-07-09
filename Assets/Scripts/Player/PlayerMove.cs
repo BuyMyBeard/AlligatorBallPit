@@ -351,6 +351,13 @@ public class PlayerMove : GroundedCharacter
         bottomText.StartWrite("Seems like you didn't read the name of the game. I wonder what you were expecting.");
         FindObjectOfType<GuyComponent>().Cry();
     }
+
+    internal void TakePortal()
+    {
+        Frozen = true;
+        Velocity = Vector2.zero;
+        Sprite.enabled = false;
+    }
 }
 public static class ExtensionMethods
 {
