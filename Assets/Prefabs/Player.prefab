@@ -325,13 +325,16 @@ MonoBehaviour:
   noFriction: {fileID: 6200000, guid: c5a2c7e52838b9e44992d1c1148c18ee, type: 2}
   highFriction: {fileID: 6200000, guid: 7ab27e82b1a5c0b4286552865ce4b3dd, type: 2}
   groundCheckBoxSize: {x: 1, y: 0.1}
+  waterMultiplier: 0.5
+  waterLayer:
+    serializedVersion: 2
+    m_Bits: 16
   ascendingDrag: 1
   holdingJumpDrag: 1
   coyoteTime: 0.2
   stunnedGravityScale: 1
   deadSpeed: 1
   timeBeforeDeath: 4
-  bouncedOnEnemy: 0
 --- !u!61 &1428499390039338820
 BoxCollider2D:
   m_ObjectHideFlags: 0
