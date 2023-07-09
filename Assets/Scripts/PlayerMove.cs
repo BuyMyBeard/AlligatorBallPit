@@ -41,6 +41,7 @@ public abstract class GroundedCharacter : MonoBehaviour
 
     protected bool isGrounded = false;
     protected Animator animator;
+    public bool Submerged { get; protected set; } = false;
     public SpriteRenderer Sprite { get; set; }
     public Rigidbody2D RB { get; protected set; }
     public CapsuleCollider2D CC { get; protected set; }
@@ -277,6 +278,7 @@ public class PlayerMove : GroundedCharacter
     public void StartCompleteLevel()
     {
         movementBlocked = true;
+        SetAnimation(Animations.Initial);
         Velocity *= new Vector2(0, 1);
     }
     IEnumerator IntroAnimation()
@@ -297,19 +299,31 @@ public class PlayerMove : GroundedCharacter
         yield return new WaitUntil(() => inputs.NudgeLeft && Time.timeScale == 1);
         frozen = false;
         transform.RotateAround(pivot, Vector3.forward, 8);
+        GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayMusic();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision);
         if (waterLayer.IncludesLayer(collision.gameObject.layer))
+        {
             movementMultiplier = waterMultiplier;
+            Submerged = true;
+            animator.speed = 0.5f;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (waterLayer.IncludesLayer(collision.gameObject.layer))
+        {
             movementMultiplier = 1;
+            Submerged = false;
+            animator.speed = 1;
+        }
     }
 
+    public void Drown()
+    {
+        throw new NotImplementedException();
+    }
 }
 public static class ExtensionMethods
 {
