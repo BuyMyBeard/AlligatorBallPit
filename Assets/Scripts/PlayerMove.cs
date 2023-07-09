@@ -278,6 +278,7 @@ public class PlayerMove : GroundedCharacter
     public void StartCompleteLevel()
     {
         movementBlocked = true;
+        SetAnimation(Animations.Initial);
         Velocity *= new Vector2(0, 1);
     }
     IEnumerator IntroAnimation()
@@ -301,7 +302,6 @@ public class PlayerMove : GroundedCharacter
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision);
         if (waterLayer.IncludesLayer(collision.gameObject.layer))
         {
             movementMultiplier = waterMultiplier;
