@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class Menu : MonoBehaviour
 {
@@ -12,13 +11,13 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu");
         Time.timeScale = 1;
-        GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().StopMusic();
+        Music.Instance.StopMusic();
     }
 
     public void Restart()
     {
         if (LevelManager.currentLevel == 1)
-            GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().StopMusic();
+            Music.Instance.StopMusic();
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;

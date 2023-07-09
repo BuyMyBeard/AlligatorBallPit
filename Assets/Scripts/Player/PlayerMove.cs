@@ -305,8 +305,6 @@ public class PlayerMove : GroundedCharacter
         Frozen = false;
         transform.RotateAround(pivot, Vector3.forward, 8);
 
-        //Music musicplayer = Music.Instance;
-        //musicplayer.PlayMusic();
         Music.Instance.PlayMusic();
         //GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().PlayMusic();
     }
