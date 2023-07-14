@@ -164,8 +164,30 @@
                 },
                 {
                     "name": "",
+                    "id": "068a8521-be0f-4a7d-94cb-926480d1aa4c",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "63c224bd-ec07-4652-88b4-487ee645248d",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d0f8a4e0-63db-4ddd-99bd-c25cf86e0ebc",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -219,6 +241,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ca49aa79-b7f7-44dd-9ed3-148c7a8fb47e",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Nudge Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "6d087dd5-89c1-4100-8ff7-3bd4a12f58c7",
                     "path": "<Keyboard>/d",
                     "interactions": "",
@@ -232,6 +265,17 @@
                     "name": "",
                     "id": "6ea5cced-4189-4017-b5e0-643564d751b3",
                     "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Nudge Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c9bb0d3-2214-460e-bca6-f5220e79b59e",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
