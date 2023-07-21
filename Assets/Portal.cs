@@ -28,7 +28,7 @@ public class Portal : MonoBehaviour
         guyComponent.Cry();
         yield return new WaitForSeconds(1.2f);
         sprite.enabled = false;
-        bubble.StartWrite("Seems like your mother never told you black holes lead you to your doom...");
+        bubble.StartWrite("Seems like your mother never told you wormholes lead you to your doom...");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

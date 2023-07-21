@@ -2869,6 +2869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textBubble: {fileID: 1561218365}
+  guy: {fileID: 1356119203}
 --- !u!61 &1172513922
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3042,6 +3043,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbe66ccc749cd9648a7cc2120b682106, type: 3}
+--- !u!114 &1356119203 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3258972312140510460, guid: b36b993d6cb4f0844ba6bd9f8fceb56c, type: 3}
+  m_PrefabInstance: {fileID: 1577312356}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 655a974e10153d74ba51a07267427071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1373297090
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Splat : MonoBehaviour
 {
     bool triggered = false;
     [SerializeField] TextBubble textBubble;
+    [SerializeField] GuyComponent guy;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,6 +15,7 @@ public class Splat : MonoBehaviour
             triggered = true;
             collision.GetComponent<PlayerMove>().Splat();
             textBubble.StartWrite("Wow, you just flattened. Guess Jello isn't so soft after all.");
+            guy.Cry();
         }
     }
 }
